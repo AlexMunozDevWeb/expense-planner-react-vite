@@ -1,5 +1,5 @@
 import { useReducer, createContext, Dispatch, ReactNode } from "react"
-import { BudgetActions, budgetReducer, BudgetState, initialState } from "../reducers/budget-reducer"
+import { BudgetActions, BudgetState, budgetReducer, initialState } from "../reducers/budget-reducer"
 
 type BudgetContextProps = {
   state: BudgetState
@@ -11,10 +11,11 @@ type BudgetProviderProps = {
 }
 
 //Acción del estado global
-export const BudgetContext = createContext<BudgetContextProps>({} as BudgetContextProps)
+// export const BudgetContext = createContext<BudgetContextProps>({} as BudgetContextProps)
+export const BudgetContext = createContext<BudgetContextProps>(null!)
 
 //Datos que va a tener ese context
-export const BudgetProvider = ({children : BudgetProviderProps}) => {
+export const BudgetProvider = ({children} : BudgetProviderProps) => {
 
   const [state, dispatch] = useReducer(budgetReducer, initialState)
 
