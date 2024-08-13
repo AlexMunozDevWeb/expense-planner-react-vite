@@ -12,13 +12,17 @@ type BudgetProviderProps = {
 
 //Acción del estado global
 // export const BudgetContext = createContext<BudgetContextProps>({} as BudgetContextProps)
+// 1. Definimos el context, con la funcion createContext
 export const BudgetContext = createContext<BudgetContextProps>(null!)
 
 //Datos que va a tener ese context
+// 2. Crear provaider
+// 3. Creamos el type BudgetProviderProps y se lo pasamos
 export const BudgetProvider = ({children} : BudgetProviderProps) => {
-
+  // 5. con el uso de useReducer tenemos acceso a budgetReducer
   const [state, dispatch] = useReducer(budgetReducer, initialState)
 
+  //4. Conectamos el context con el provaider en el return
   return (
     <BudgetContext.Provider
       value={{

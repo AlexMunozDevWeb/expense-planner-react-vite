@@ -6,6 +6,7 @@ import './index.css'
 // El context los genera
 import { BudgetProvider } from './context/BudgetContext.tsx'
 
+//5. Rodeamos el app con BudgetProvaider 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     {/* Context lo que hace es colocarse sobre la aplicación (el App) */}
