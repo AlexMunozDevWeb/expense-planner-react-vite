@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { DraftExpense } from "../types";
+import { ChangeEvent, useState } from "react";
+import { DraftExpense, Value } from "../types";
 import { categories } from "../data/categories";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css'
@@ -13,6 +13,24 @@ export default function ExpenseForm() {
     category: '',
     date: new Date()
   })
+
+  //Funcion para el resto de campos del form
+  const handleChange = ( e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> ) => {
+    const { name, value } = e.target
+    const isAmountField = ['amount'].includes(name)
+    setExpense({
+      ...expense,
+      [name] : isAmountField ? Number(value) : value
+    })
+  }
+
+  //Funcion para el onChange del date picker
+  const handleChangeDate = (value : Value) => {
+    setExpense({
+      ...expense, 
+      date: value
+    })
+  }
 
   return (
     <form className="space-y-5">
@@ -33,6 +51,7 @@ export default function ExpenseForm() {
             className="bg-slate-100 p-2"
             name="expenseName"
             value={expense.expenseName}
+            onChange={handleChange}
           />
         </div>
 
@@ -49,6 +68,7 @@ export default function ExpenseForm() {
             className="bg-slate-100 p-2"
             name="amount"
             value={expense.amount}
+            onChange={handleChange}
           />
         </div>
 
@@ -64,6 +84,7 @@ export default function ExpenseForm() {
             className="bg-slate-100 p-2"
             name="category"
             value={expense.category}
+            onChange={handleChange}
           >
             <option value="">-- Seleccione --</option>
             {categories.map( category => (
@@ -84,6 +105,7 @@ export default function ExpenseForm() {
           <DatePicker 
             className="bg-stone-100 p-2 border-0"
             value={expense.date}
+            onChange={handleChangeDate}
           />
         </div>
 
