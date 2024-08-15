@@ -34,3 +34,8 @@
 - Dependencia react-calendar: https://github.com/wojtekmaj/react-calendar
 - Instalación: npm install react-calendar
 - Importar CSS: import 'react-calendar/dist/Calendar.css'
+
+## Dependencia para la creación de id únicos
+- https://www.npmjs.com/package/uuid
+- npm i uuid
+- npm i --save-dev @types/uuid
