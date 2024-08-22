@@ -10,14 +10,14 @@ export type BudgetActions =
   { type: 'get-expense-by-id', payload: {id: Expense['id']} } |
   { type: 'update-expense', payload: {expense: Expense} } |
   { type: 'reset-app' } |
-  { type: 'add-filter-category', payload: {id: Category['id']} } 
+  { type: 'add-filter-category', payload: {name: Category['name']} } 
 
 export type BudgetState = {
   budget: number
   modal: boolean
   expenses: Expense[]
   editingId: Expense['id']
-  currentCategory: Category['id']
+  currentCategory: Category['name']
 }
 
 const initialBudget = () : number => {
@@ -108,7 +108,7 @@ export const budgetReducer = (
     if(action.type === 'add-filter-category'){
       return{
         ...state,
-        currentCategory: action.payload.id
+        currentCategory: action.payload.name
       }
     }
 

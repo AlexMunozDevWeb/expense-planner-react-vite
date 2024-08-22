@@ -7,7 +7,7 @@ export const FilterByCategory = () => {
   const { dispatch } = useBudget()
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch( {type: 'add-filter-category', payload: {id: e.target.value}} )
+    dispatch( {type: 'add-filter-category', payload: {name: e.target.value.toString()}} )
   }
 
   return (
@@ -24,7 +24,7 @@ export const FilterByCategory = () => {
             {
               categories.map( category => (
                 <option 
-                  value={category.id}
+                  value={category.name}
                   key={category.id}
                 >{category.name}</option>
               ))
