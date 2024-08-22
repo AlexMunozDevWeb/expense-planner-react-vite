@@ -45,3 +45,9 @@
 - npm install react-swipeable-list
 - npm install prop-types
 - Añadir al index.css: https://gist.github.com/codigoconjuan/e1a67f2a729bc44978c2c7d0f946ce7e
+
+## Dependencia para gráfica
+- https://www.npmjs.com/package/react-circular-progressbar
+- npm i --save react-circular-progressbar
+- import { CircularProgressbar } from 'react-circular-progressbar';
+- import 'react-circular-progressbar/dist/styles.css';
