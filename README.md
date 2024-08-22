@@ -51,3 +51,6 @@
 - npm i --save react-circular-progressbar
 - import { CircularProgressbar } from 'react-circular-progressbar';
 - import 'react-circular-progressbar/dist/styles.css';
+
+## Building app
+- npm run build
