@@ -11,9 +11,9 @@ export const BudgetTracker = () => {
   const porcentage = +((totalExpenses / state.budget) * 100).toFixed(2)
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="flex justify-center">
-        <CircularProgressbar 
+        <CircularProgressbar
           value={porcentage}
           styles={buildStyles({
             pathColor: porcentage === 100 ? '#DC2626' : '#3B82F6',
@@ -28,23 +28,23 @@ export const BudgetTracker = () => {
       <div className="flex flex-col justify-center items-center gap-8">
         <button
           type="button"
-          className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg"
-          onClick={() => dispatch({type: 'reset-app'})}
-          >
-            Resetear App
+          className="bg-pink-600 hover:bg-pink-700 w-full p-2 text-white uppercase font-bold rounded-lg shadow-md transition-colors"
+          onClick={() => dispatch({ type: 'reset-app' })}
+        >
+          Resetear App
         </button>
 
-        <AmountDisplay 
+        <AmountDisplay
           label="Presupuesto"
-          amount={state.budget} 
+          amount={state.budget}
         />
-        <AmountDisplay 
+        <AmountDisplay
           label="Disponible"
-          amount={remainingBudget} 
+          amount={remainingBudget}
         />
-        <AmountDisplay 
+        <AmountDisplay
           label="Gastado"
-          amount={totalExpenses} 
+          amount={totalExpenses}
         />
       </div>
     </div>

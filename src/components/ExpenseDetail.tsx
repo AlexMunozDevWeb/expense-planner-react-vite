@@ -20,17 +20,17 @@ type ExpenseDetailProps = {
   expense: Expense
 }
 
-export default function ExpenseDetail({expense} : ExpenseDetailProps) {
-  
-  const categoryInfo = useMemo( () => categories.filter( cat => cat.name === expense.category )[0], [expense] )
+export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
 
-  const {dispatch} = useBudget()
+  const categoryInfo = useMemo(() => categories.filter(cat => cat.name === expense.category)[0], [expense])
+
+  const { dispatch } = useBudget()
 
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction
-        onClick={() => dispatch({type: 'get-expense-by-id', payload:{id: expense.id}})}
-        > 
+        onClick={() => dispatch({ type: 'get-expense-by-id', payload: { id: expense.id } })}
+      >
         Actualizar
       </SwipeAction>
     </LeadingActions>
@@ -39,9 +39,9 @@ export default function ExpenseDetail({expense} : ExpenseDetailProps) {
   const trailingActions = () => (
     <TrailingActions>
       <SwipeAction
-        onClick={() => dispatch({type: 'remove-expense', payload:{id: expense.id}})}
+        onClick={() => dispatch({ type: 'remove-expense', payload: { id: expense.id } })}
         destructive={true}
-        >
+      >
         Eliminar
       </SwipeAction>
     </TrailingActions>
@@ -53,23 +53,23 @@ export default function ExpenseDetail({expense} : ExpenseDetailProps) {
         maxSwipe={1}
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
-        >
-        <div className="bg-white shadow-lg p-5 w-full border-b border-gray-200 flex gap-5 items-center">
+      >
+        <div className="bg-white shadow-sm p-5 w-full border-b border-gray-200 flex gap-5 items-center rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
           <div>
             <img
               src={`icono_${categoryInfo.icon}.svg`}
               alt="Icono gasto"
-              className="w-20" 
+              className="w-20"
             />
           </div>
 
           <div className="flex-1 space-y-2">
-            <p className="text-sm font-bold uppercase text-slate-500">{categoryInfo.icon}</p>
-            <p>{expense.expenseName}</p>
-            <p className="text-slate-600 text-sm">{ formatDate( expense.date!.toString() ) }</p>
+            <p className="text-sm font-bold uppercase text-slate-500">{categoryInfo.name}</p>
+            <p className="text-xl font-bold text-slate-700">{expense.expenseName}</p>
+            <p className="text-slate-600 text-sm font-medium">{formatDate(expense.date!.toString())}</p>
           </div>
 
-          <AmountDisplay 
+          <AmountDisplay
             amount={expense.amount}
           />
         </div>

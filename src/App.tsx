@@ -6,27 +6,27 @@ import ExpenseModal from "./components/ExpenseModal"
 import ExpenseList from "./components/ExpenseList"
 import { FilterByCategory } from "./components/FilterByCategory"
 
-function App() { 
-  
-  const { state } = useBudget() 
+function App() {
 
-  const isValidBudget = useMemo( () => state.budget > 0, [state.budget] )
+  const { state } = useBudget()
 
-  useEffect( () => {
+  const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
+
+  useEffect(() => {
     localStorage.setItem('budget', state.budget.toString())
     localStorage.setItem('expenses', JSON.stringify(state.expenses))
   }, [state])
 
   return (
     <>
-      <header className="bg-blue-600 py-8 max-h-72">
-        <h1 className="uppercase text-center font-black text-4xl text-white">
+      <header className="bg-gradient-to-r from-blue-600 to-indigo-600 py-8 max-h-72 shadow-lg">
+        <h1 className="uppercase text-center font-black text-4xl text-white tracking-wider">
           Planificador de gastos
-        </h1>  
+        </h1>
       </header>
 
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10">
-        { isValidBudget ? <BudgetTracker /> : <BudgetForm /> }
+      <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-xl mt-10 p-10 border border-slate-100">
+        {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
       </div>
 
       {isValidBudget && (
@@ -36,7 +36,7 @@ function App() {
           <ExpenseModal />
         </main>
       )}
-  
+
     </>
   )
 }
