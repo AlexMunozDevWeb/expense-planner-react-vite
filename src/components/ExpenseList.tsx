@@ -18,7 +18,7 @@ export default function ExpenseList() {
   }, [expenses, filterCategory]);
 
   return (
-    <div className="mt-10 bg-white shadow-xl rounded-xl p-10 border border-slate-100">
+    <div className="mt-10 bg-white shadow-xl rounded-xl p-5 sm:p-10 border border-slate-100">
       {isEmpty ? (
         <p className="text-slate-600 text-2xl font-bold text-center opacity-50">
           No hay gastos registrados
