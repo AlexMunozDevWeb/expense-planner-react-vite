@@ -19,7 +19,8 @@
     "react-date-picker": "^11.0.0",
     "react-dom": "^18.3.1",
     "react-swipeable-list": "^1.9.3",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
