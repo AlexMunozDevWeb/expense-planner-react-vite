@@ -72,6 +72,15 @@ export const useBudgetStore = create<BudgetStore>()(
         }));
       },
 
+      // Select expense
+      selectedExpense: null,
+      setSelectedExpense: (expense: Expense | null) => {
+        set(() => ({
+          selectedExpense: expense,
+          isModalOpen: true,
+        }));
+      },
+
       // 🔄 reset total app
       resetApp: () => {
         set(() => ({

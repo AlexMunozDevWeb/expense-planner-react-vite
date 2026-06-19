@@ -25,12 +25,15 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     () => categories.filter((cat) => cat.name === expense.category)[0],
     [expense],
   );
-  const getExpenseById = useBudgetStore((state) => state.getExpenseById);
   const removeExpense = useBudgetStore((state) => state.removeExpense);
+
+  const setSelectedExpense = useBudgetStore(
+    (state) => state.setSelectedExpense,
+  );
 
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => getExpenseById(expense.id)}>
+      <SwipeAction onClick={() => setSelectedExpense(expense)}>
         Actualizar
       </SwipeAction>
     </LeadingActions>

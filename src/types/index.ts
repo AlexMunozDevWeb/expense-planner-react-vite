@@ -28,6 +28,10 @@ export type BudgetStore = {
   filterCategory: string | null;
   addFilterCategory: (category: string | null) => void;
 
+  // Select expense
+  selectedExpense: Expense | null;
+  setSelectedExpense: (expense: Expense | null) => void;
+
   // 🔄 reset
   resetApp: () => void;
 };
