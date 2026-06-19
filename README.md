@@ -1,4 +1,5 @@
-# Control de gastos y presupuestos - React - TypeScript - useReducer - ContextAPI - TailwindCSS
+# Control de gastos y presupuestos - React - TypeScript - Zustand - TailwindCSS
+- Despliega de la aplicación: https://expense-plan.netlify.app/
 
 ## Instalación de React
 
