@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { DraftExpense, Value } from "../types";
-import { categories } from "../data/categories";
+import { DraftExpense, Value } from "../../types";
+import { categories } from "../../data/categories";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-import ErrorMessage from "./ErrorMessage";
-import { useBudgetStore } from "../store";
+import ErrorMessage from "../ErrorMessage";
+import { useBudgetStore } from "../../store";
 
 export default function ExpenseForm() {
   const [expense, setExpense] = useState<DraftExpense>({

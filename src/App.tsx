@@ -2,7 +2,7 @@ import { TopMenu } from "./components/TopMenu";
 import { SetBudgetForm } from "./components/SetBudgetForm";
 import { BudgetTracker } from "./components/BudgetTracker";
 import ExpenseList from "./components/ExpenseList";
-import ExpenseModal from "./components/ExpenseModal";
+import ExpenseModal from "./components/modal/ExpenseModal";
 import { FilterByCategory } from "./components/FilterByCategory";
 
 import { useBudgetStore } from "./store/";

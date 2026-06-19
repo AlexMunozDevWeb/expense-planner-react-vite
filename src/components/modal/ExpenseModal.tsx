@@ -3,7 +3,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { Dialog, Transition } from "@headlessui/react";
 import ExpenseForm from "./ExpenseForm";
 
-import { useBudgetStore } from "../store";
+import { useBudgetStore } from "../../store";
 
 export default function ExpenseModal() {
   const isModalOpen = useBudgetStore((state) => state.isModalOpen);
