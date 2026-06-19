@@ -1,34 +1,23 @@
-import { useEffect, useMemo } from "react"
-import { BudgetForm } from "./components/BudgetForm"
-import { useBudget } from "./hooks/useBudget"
-import { BudgetTracker } from "./components/BudgetTracker"
-import ExpenseModal from "./components/ExpenseModal"
-import ExpenseList from "./components/ExpenseList"
-import { FilterByCategory } from "./components/FilterByCategory"
+import { TopMenu } from "./components/TopMenu";
+import { SetBudgetForm } from "./components/SetBudgetForm";
+import { BudgetTracker } from "./components/BudgetTracker";
+import ExpenseList from "./components/ExpenseList";
+import ExpenseModal from "./components/ExpenseModal";
+import { FilterByCategory } from "./components/FilterByCategory";
+
+import { useBudgetStore } from "./store/";
 
 function App() {
+  const budget = useBudgetStore((state) => state.budget);
 
-  const { state } = useBudget()
-
-  const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
-
-  useEffect(() => {
-    localStorage.setItem('budget', state.budget.toString())
-    localStorage.setItem('expenses', JSON.stringify(state.expenses))
-  }, [state])
+  const isValidBudget = isNaN(budget) || budget > 0;
 
   return (
     <>
-      <header className="bg-gradient-to-r from-blue-600 to-indigo-600 py-8 max-h-72 shadow-lg">
-        <h1 className="uppercase text-center font-black text-4xl text-white tracking-wider">
-          Planificador de gastos
-        </h1>
-      </header>
-
+      <TopMenu />
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-xl mt-10 p-10 border border-slate-100">
-        {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
+        {isValidBudget ? <BudgetTracker /> : <SetBudgetForm />}
       </div>
-
       {isValidBudget && (
         <main className="max-w-3xl mx-auto py-10">
           <FilterByCategory />
@@ -36,9 +25,8 @@ function App() {
           <ExpenseModal />
         </main>
       )}
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
