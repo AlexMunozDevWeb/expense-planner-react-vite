@@ -3,6 +3,7 @@ import { formatDate } from "../helpers";
 import { Expense } from "../types";
 import AmountDisplay from "./AmountDisplay";
 import { categories } from "../data/categories";
+import { getPercentage } from "../helpers";
 
 import { useBudgetStore } from "../store";
 
@@ -15,6 +16,7 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
+import { BudgetProgressBar } from "./BudgetProgressBar";
 
 type ExpenseDetailProps = {
   expense: Expense;
@@ -30,6 +32,8 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
   const setSelectedExpense = useBudgetStore(
     (state) => state.setSelectedExpense,
   );
+
+  const budget = useBudgetStore((state) => state.budget);
 
   const leadingActions = () => (
     <LeadingActions>
@@ -61,14 +65,21 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
             />
           </div>
           <div className="flex-1 space-y-2">
-            <p className="text-sm font-bold uppercase text-slate-500">
-              {categoryInfo.name}
-            </p>
+            <div className="flex space-x-2">
+              <p className="text-sm font-bold uppercase text-slate-500">
+                {categoryInfo.name}
+              </p>
+              <p className="text-slate-600 text-sm font-medium">
+                {formatDate(expense.date!.toString())}
+              </p>
+            </div>
             <p className="text-xl font-bold text-slate-700">
               {expense.expenseName}
             </p>
-            <p className="text-slate-600 text-sm font-medium">
-              {formatDate(expense.date!.toString())}
+            <p className="progress-bar">
+              <BudgetProgressBar
+                percentage={getPercentage(expense.amount, budget)}
+              />
             </p>
           </div>
           <AmountDisplay amount={expense.amount} />

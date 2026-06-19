@@ -4,7 +4,6 @@ export type Expense = {
   amount: number;
   category: string;
   date: Value;
-  // date: string;
 };
 
 export type BudgetStore = {
@@ -46,4 +45,8 @@ export type Category = {
   id: string;
   name: string;
   icon: string;
+};
+
+export type porcentageProgressBar = {
+  percentage: number;
 };

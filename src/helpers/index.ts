@@ -15,3 +15,7 @@ export function formatDate(dateStr: string): string {
   };
   return new Intl.DateTimeFormat("es-ES", options).format(dateObj);
 }
+
+export function getPercentage(expenseAmount: number, totalBudget: number) {
+  return (expenseAmount / totalBudget) * 100;
+}
