@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { DraftExpense, Value, Expense } from "../types";
+import { DraftExpense, Value } from "../types";
 import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
