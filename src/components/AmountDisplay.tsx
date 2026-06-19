@@ -1,15 +1,17 @@
-import { formatCurrency } from "../helpers"
+import { formatCurrency } from "../helpers";
 
 type AmountDisplayProps = {
-  label?: string
-  amount: number
-}
+  label?: string;
+  amount: number;
+};
 
 export default function AmountDisplay({ label, amount }: AmountDisplayProps) {
   return (
     <p className="text-2xl text-blue-600 font-bold">
       {label && `${label}: `}
-      <span className="font-black text-slate-800">{formatCurrency(amount)}</span>
+      <span className="font-black text-slate-800">
+        {formatCurrency(amount)}
+      </span>
     </p>
-  )
+  );
 }

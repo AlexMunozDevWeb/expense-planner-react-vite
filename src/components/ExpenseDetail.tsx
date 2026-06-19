@@ -1,10 +1,10 @@
-import { useMemo } from "react"
-import { formatDate } from "../helpers"
-import { Expense } from "../types"
-import AmountDisplay from "./AmountDisplay"
-import { categories } from "../data/categories"
+import { useMemo } from "react";
+import { formatDate } from "../helpers";
+import { Expense } from "../types";
+import AmountDisplay from "./AmountDisplay";
+import { categories } from "../data/categories";
 
-import { useBudget } from "../hooks/useBudget"
+import { useBudgetStore } from "../store";
 
 //Imports para el swipe
 import {
@@ -13,40 +13,35 @@ import {
   SwipeableListItem,
   SwipeAction,
   TrailingActions,
-} from 'react-swipeable-list';
-import 'react-swipeable-list/dist/styles.css';
+} from "react-swipeable-list";
+import "react-swipeable-list/dist/styles.css";
 
 type ExpenseDetailProps = {
-  expense: Expense
-}
+  expense: Expense;
+};
 
 export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
-
-  const categoryInfo = useMemo(() => categories.filter(cat => cat.name === expense.category)[0], [expense])
-
-  const { dispatch } = useBudget()
+  const categoryInfo = useMemo(
+    () => categories.filter((cat) => cat.name === expense.category)[0],
+    [expense],
+  );
+  const getExpenseById = useBudgetStore((state) => state.getExpenseById);
+  const removeExpense = useBudgetStore((state) => state.removeExpense);
 
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction
-        onClick={() => dispatch({ type: 'get-expense-by-id', payload: { id: expense.id } })}
-      >
+      <SwipeAction onClick={() => getExpenseById(expense.id)}>
         Actualizar
       </SwipeAction>
     </LeadingActions>
-  )
-
+  );
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction
-        onClick={() => dispatch({ type: 'remove-expense', payload: { id: expense.id } })}
-        destructive={true}
-      >
+      <SwipeAction onClick={() => removeExpense(expense.id)} destructive={true}>
         Eliminar
       </SwipeAction>
     </TrailingActions>
-  )
-
+  );
   return (
     <SwipeableList>
       <SwipeableListItem
@@ -62,18 +57,20 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
               className="w-20"
             />
           </div>
-
           <div className="flex-1 space-y-2">
-            <p className="text-sm font-bold uppercase text-slate-500">{categoryInfo.name}</p>
-            <p className="text-xl font-bold text-slate-700">{expense.expenseName}</p>
-            <p className="text-slate-600 text-sm font-medium">{formatDate(expense.date!.toString())}</p>
+            <p className="text-sm font-bold uppercase text-slate-500">
+              {categoryInfo.name}
+            </p>
+            <p className="text-xl font-bold text-slate-700">
+              {expense.expenseName}
+            </p>
+            <p className="text-slate-600 text-sm font-medium">
+              {formatDate(expense.date!.toString())}
+            </p>
           </div>
-
-          <AmountDisplay
-            amount={expense.amount}
-          />
+          <AmountDisplay amount={expense.amount} />
         </div>
       </SwipeableListItem>
     </SwipeableList>
-  )
+  );
 }

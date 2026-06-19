@@ -1,14 +1,21 @@
-import { useBudget } from "../hooks/useBudget"
-import AmountDisplay from "./AmountDisplay"
+import AmountDisplay from "./AmountDisplay";
 
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
+import { useBudgetStore } from "../store/";
 
 export const BudgetTracker = () => {
+  const budget = useBudgetStore((state) => state.budget);
+  const resetApp = useBudgetStore((state) => state.resetApp);
 
-  const { state, totalExpenses, remainingBudget, dispatch } = useBudget()
+  const totalExpenses = useBudgetStore((state) =>
+    state.expenses.reduce((total, expense) => total + expense.amount, 0),
+  );
 
-  const porcentage = +((totalExpenses / state.budget) * 100).toFixed(2)
+  const remainingBudget = budget - totalExpenses;
+
+  const porcentage = +((totalExpenses / budget) * 100).toFixed(2);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -16,10 +23,10 @@ export const BudgetTracker = () => {
         <CircularProgressbar
           value={porcentage}
           styles={buildStyles({
-            pathColor: porcentage === 100 ? '#DC2626' : '#3B82F6',
-            trailColor: '#F5F5F5',
+            pathColor: porcentage === 100 ? "#DC2626" : "#3B82F6",
+            trailColor: "#F5F5F5",
             textSize: 8,
-            textColor: porcentage === 100 ? '#DC2626' : '#3B82F6'
+            textColor: porcentage === 100 ? "#DC2626" : "#3B82F6",
           })}
           text={`${porcentage}% Gastado`}
         />
@@ -29,25 +36,15 @@ export const BudgetTracker = () => {
         <button
           type="button"
           className="bg-pink-600 hover:bg-pink-700 w-full p-2 text-white uppercase font-bold rounded-lg shadow-md transition-colors"
-          onClick={() => dispatch({ type: 'reset-app' })}
+          onClick={() => resetApp()}
         >
           Resetear App
         </button>
 
-        <AmountDisplay
-          label="Presupuesto"
-          amount={state.budget}
-        />
-        <AmountDisplay
-          label="Disponible"
-          amount={remainingBudget}
-        />
-        <AmountDisplay
-          label="Gastado"
-          amount={totalExpenses}
-        />
+        <AmountDisplay label="Presupuesto" amount={budget} />
+        <AmountDisplay label="Disponible" amount={remainingBudget} />
+        <AmountDisplay label="Gastado" amount={totalExpenses} />
       </div>
     </div>
-  )
-}
-
+  );
+};

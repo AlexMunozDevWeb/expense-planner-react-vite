@@ -1,32 +1,41 @@
-import { useMemo } from "react"
-import { useBudget } from "../hooks/useBudget"
-import ExpenseDetail from "./ExpenseDetail"
+import { useMemo } from "react";
+import { useBudgetStore } from "../store";
+import ExpenseDetail from "../components/ExpenseDetail";
 
 export default function ExpenseList() {
+  const expenses = useBudgetStore((state) => state.expenses);
+  console.log(expenses);
 
-  const { state } = useBudget()
+  const filterCategory = useBudgetStore((state) => state.filterCategory);
 
-  const filteredByExpenses = state.currentCategory
-    ? state.expenses.filter(expense => expense.category === state.currentCategory)
-    : state.expenses
+  console.log(filterCategory);
+  const isEmpty = expenses.length === 0;
 
-  const isEmpty = useMemo(() => filteredByExpenses.length === 0, [filteredByExpenses])
+  const filteredExpenses = useMemo(() => {
+    if (!filterCategory) return expenses;
+
+    return expenses.filter((expense) => expense.category === filterCategory);
+  }, [expenses, filterCategory]);
 
   return (
     <div className="mt-10 bg-white shadow-xl rounded-xl p-10 border border-slate-100">
-      {isEmpty ? <p className="text-slate-600 text-2xl font-bold text-center opacity-50">No hay gastos registrados</p> : (
+      {isEmpty ? (
+        <p className="text-slate-600 text-2xl font-bold text-center opacity-50">
+          No hay gastos registrados
+        </p>
+      ) : (
         <>
-          <p className="text-slate-600 text-2xl font-bold my-5 border-b-2 border-slate-100 pb-2">Listado de gastos</p>
+          <p className="text-slate-600 text-2xl font-bold my-5 border-b-2 border-slate-100 pb-2">
+            Listado de gastos
+          </p>
+
           <div className="flex flex-col gap-4">
-            {filteredByExpenses.map(expense => (
-              <ExpenseDetail
-                key={expense.id}
-                expense={expense}
-              />
+            {filteredExpenses.map((expense) => (
+              <ExpenseDetail key={expense.id} expense={expense} />
             ))}
           </div>
         </>
       )}
     </div>
-  )
+  );
 }

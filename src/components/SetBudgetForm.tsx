@@ -1,31 +1,28 @@
-import { useMemo, useState } from "react";
-//8. Lo utilizamos directamente en el componente
-import { useBudget } from "../hooks/useBudget";
+import { useState } from "react";
+import { useBudgetStore } from "../store";
 
-export const BudgetForm = () => {
+export const SetBudgetForm = () => {
+  const [input, setInput] = useState(0);
+  const { addBudget } = useBudgetStore();
 
-  const [budget, setBudget] = useState(0);
-  const { dispatch } = useBudget();
+  const isInvalid = isNaN(input) || input <= 0;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBudget(e.target.valueAsNumber);
-  }
-
-  const isValid = useMemo(() => {
-    return isNaN(budget) || budget <= 0;
-  }, [budget])
+    setInput(e.target.valueAsNumber);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //9. Aqui tenemos acceso a todos los provaiders
-    dispatch({ type: 'add-budget', payload: { budget } })
-  }
+    addBudget(input);
+  };
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
-
       <div className="flex flex-col space-y-5">
-        <label htmlFor="budget" className="text-4xl text-blue-600 font-bold text-center">
+        <label
+          htmlFor="budget"
+          className="text-4xl text-blue-600 font-bold text-center"
+        >
           Definir Presupuesto
         </label>
       </div>
@@ -36,7 +33,7 @@ export const BudgetForm = () => {
         className="w-full bg-white border border-gray-200 p-2"
         placeholder="Define tu presupuesto"
         name="budget"
-        value={budget}
+        value={input}
         onChange={handleChange}
       />
 
@@ -44,9 +41,8 @@ export const BudgetForm = () => {
         type="submit"
         value="Definir Presupuesto"
         className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white font-bold uppercase disabled:opacity-40"
-        disabled={isValid}
+        disabled={isInvalid}
       />
-
     </form>
-  )
-}
+  );
+};
